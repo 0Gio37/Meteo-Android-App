@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Meteo Android App</string>
+    <string name="city_name">New York</string>
+    <string name="city_desc">Sunshine</string>
+    <string name="city_temp">24°C</string>
+    <string name="btn_favori">Favorites</string>
+
+
+</resources>
