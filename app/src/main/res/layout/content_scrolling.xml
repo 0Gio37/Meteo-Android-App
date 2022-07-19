@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".FavoriteActivity"
-    tools:showIn="@layout/activity_favorite">
+    tools:context=".activities.FavoriteActivity"
+    tools:showIn="@layout/activity_favorite"
+    android:background="@color/main_bckg">
 
-    <TextView
-        android:id="@+id/text_view_message_activity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_list_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.peterbardu.android.meteo.activities.FavoriteActivity"
+        tools:showIn="@layout/activity_favorite" />
+
+
 
 </androidx.core.widget.NestedScrollView>

@@ -7,12 +7,11 @@
         android:id="@+id/linear_layout_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:background="@color/main_bckg"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="16dp"
-        tools:context=".MainActivity">
+        tools:context=".activities.MainActivity">
 
         <TextView
             android:id="@+id/text_view_city_name"
@@ -96,10 +95,11 @@
         android:visibility="invisible" />
 
     <EditText
-        android:gravity="center"
         android:id="@+id/edit_text_test"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:hint="Test message" />
+        android:gravity="center"
+        android:hint="Test message"
+        android:visibility="visible" />
 </RelativeLayout>
 
