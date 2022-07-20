@@ -36,8 +36,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+
+import com.georges.android.meteoandroidapp.utils.UtilApi;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -53,7 +53,7 @@ public class FavoriteActivity extends AppCompatActivity {
     private RecyclerView mRecylerViewListFavorite;
     private FavoriteAdapter mAdapter;
     private Context mContext;
-    private final String API_KEY = "01897e497239c8aff78d9b8538fb24ea";
+    //private final String API_KEY = "01897e497239c8aff78d9b8538fb24ea";
     private OkHttpClient mOkHttpClient;
     private Handler mHandler;
 
@@ -129,7 +129,8 @@ public class FavoriteActivity extends AppCompatActivity {
     }
 
     public void callAPI(String newFavoriCity){
-        Request request = new Request.Builder().url("https://api.openweathermap.org/data/2.5/weather?q="+newFavoriCity+"&appid="+API_KEY).build();
+        //Request request = new Request.Builder().url("https://api.openweathermap.org/data/2.5/weather?q="+newFavoriCity+"&appid="+API_KEY).build();
+        Request request = new Request.Builder().url(UtilApi.urlByCityName+newFavoriCity+"&appid="+UtilApi.API_KEY).build();
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -149,8 +150,7 @@ public class FavoriteActivity extends AppCompatActivity {
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            Log.d("RESPONSE", "404");
-                            Toast.makeText(mContext, "Cette ville n'existe pas", Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, "Cette ville n'existe pas !", Toast.LENGTH_LONG).show();
                         }
                     });
                 }
@@ -168,7 +168,6 @@ public class FavoriteActivity extends AppCompatActivity {
                 mCities.add(newFavoriteCity);
                 mAdapter.notifyDataSetChanged();
                 Toast.makeText(mContext, newFavoriteCity.mName + " ajouté aux favoris !", Toast.LENGTH_SHORT).show();
-
             }
         } catch (JSONException e) {
             e.printStackTrace();

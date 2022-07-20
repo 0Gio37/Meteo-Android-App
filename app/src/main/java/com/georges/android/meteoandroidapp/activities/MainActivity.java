@@ -22,8 +22,9 @@ import com.georges.android.meteoandroidapp.databinding.ActivityMainBinding;
 import com.georges.android.meteoandroidapp.models.City;
 
 import org.json.JSONException;
-
 import java.io.IOException;
+
+import com.georges.android.meteoandroidapp.utils.UtilApi;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText mTestMessage;
     private Context mContext;
     private OkHttpClient mOkHttpClient;
-    private final String API_KEY = "01897e497239c8aff78d9b8538fb24ea";
+    //private final String API_KEY = "01897e497239c8aff78d9b8538fb24ea";
     private Handler mHandler;
     private City mCurrentCity;
     private ActivityMainBinding binding;
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     //appel de l API
     public void callAPI(){
-        Request request = new Request.Builder().url("http://api.openweathermap.org/data/2.5/weather?lat=47.390026&lon=0.688891&appid="+API_KEY).build();
+        Request request = new Request.Builder().url(UtilApi.urlByLatAndLong+UtilApi.API_KEY).build();
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
