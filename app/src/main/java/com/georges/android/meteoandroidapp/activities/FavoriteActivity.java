@@ -104,7 +104,6 @@ public class FavoriteActivity extends AppCompatActivity {
                 builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        onRestart();
                     }
                 });
                 builder.create().show();

@@ -76,24 +76,16 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         public boolean onLongClick(View v) {
             String selectedCityName = mCity.mName;
             final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-            builder.setTitle("SUPPRESSION");
+            builder.setTitle((mContext.getString(R.string.delete))+" ?" );
             builder.setMessage("Voulez-vous retirer"+selectedCityName+ " de vos favoris ?");
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     mCities.remove(mCity);
-
-                    //Intent intent = new Intent(mContext, FavoriteActivity.class);
-                   // activity.startActivity(intent);
-
-
+                    notifyDataSetChanged();
                 }
             });
-            builder.setNegativeButton("ANNULER", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                }
-            });
+            builder.setNegativeButton("ANNULER", null);
             builder.create().show();
             return true;
         }
