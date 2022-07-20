@@ -29,7 +29,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="@string/city_desc"
             android:textColor="@color/white"
             android:textSize="@dimen/h3"
             android:textStyle="bold" />
@@ -44,7 +43,7 @@
                 android:id="@+id/image_view_picto"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
-                android:src="@drawable/weather_sunny_white" />
+                 />
 
             <TextView
                 android:id="@+id/text_view_temp"
@@ -52,7 +51,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="right"
-                android:text="@string/city_temp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/h2"
                 android:textStyle="bold" />

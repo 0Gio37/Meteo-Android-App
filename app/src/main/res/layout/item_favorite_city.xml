@@ -19,8 +19,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="monte-carlo"
-                android:textColor="@color/king_blue"
-                android:textSize="@dimen/h2" />
+                android:textColor="@color/black"
+                android:textSize="@dimen/h3" />
             <TextView
                 android:id="@+id/text_view_single_item_description"
                 android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginRight="20dp"
-                android:src="@drawable/weather_sunny_white" />
+                android:src="@drawable/weather_sunny_grey" />
             <TextView
                 android:id="@+id/text_view_single_item_temp"
                 android:layout_width="wrap_content"
