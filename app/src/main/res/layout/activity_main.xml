@@ -92,12 +92,5 @@
         android:text="Acceder aux paramètres"
         android:visibility="invisible" />
 
-    <EditText
-        android:id="@+id/edit_text_test"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:hint="Test message"
-        android:visibility="visible" />
 </RelativeLayout>
 

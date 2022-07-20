@@ -48,12 +48,10 @@ import okhttp3.Response;
 public class FavoriteActivity extends AppCompatActivity {
 
     private ActivityFavoriteBinding binding;
-    //private TextView mGetMessage;
     private ArrayList<City> mCities;
     private RecyclerView mRecylerViewListFavorite;
     private FavoriteAdapter mAdapter;
     private Context mContext;
-    //private final String API_KEY = "01897e497239c8aff78d9b8538fb24ea";
     private OkHttpClient mOkHttpClient;
     private Handler mHandler;
 
@@ -73,22 +71,14 @@ public class FavoriteActivity extends AppCompatActivity {
         mHandler = new Handler();
 
         //recup info main activity
-        Bundle extras = getIntent().getExtras();
-        String strMessage = extras.getString("monMessage");
+        //Bundle extras = getIntent().getExtras();
+        //String strMessage = extras.getString("monMessage");
         //mGetMessage = (TextView) findViewById(R.id.text_view_message_activity);
         //mGetMessage.setText("Message :" + strMessage);
 
-       //crea list temp en dur
+       //crea list des cities
        mCities = new ArrayList<>();
-/*       City city1 = new City("Montréal", "Légères pluies", "22°C", R.drawable.weather_rainy_white);
-       City city2 = new City("New York", "Ensoleillé","21°C", R.drawable.weather_sunny_white);
-       City city3 = new City("Paris", "Nuageux", "19°C", R.drawable.weather_foggy_white);
-       City city4 = new City("Toulouse", "Pluies modérées", "20°C", R.drawable.weather_rainy_white);
 
-        mCities.add(city1);
-        mCities.add(city2);
-        mCities.add(city3);
-        mCities.add(city4);*/
 
         //binding de la recylcler view
         mRecylerViewListFavorite = (RecyclerView) findViewById(R.id.recycler_view_list_favorite);
@@ -105,7 +95,7 @@ public class FavoriteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                Toast.makeText(mContext, "float btn ok", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "float btn ok", Toast.LENGTH_SHORT).show();
                 View v = LayoutInflater.from(mContext).inflate(R.layout.dialog_add_favorite, null);
                 final EditText editTextCity = (EditText) v.findViewById(R.id.edit_text_modal_add_favorit_city);
                 builder.setView(v);

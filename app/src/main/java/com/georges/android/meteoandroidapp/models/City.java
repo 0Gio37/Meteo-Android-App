@@ -11,24 +11,15 @@ public class City {
     public String mName;
     public String mDescription;
     public String mTemperature;
-
-    public int mWeatherIcon;
-
     public int mIdCity;
     public double mLatitude;
     public double mLongitude;
     public int mWeatherResIconWhite;
     //public int mWeatherResIconGrey;
     public String mCountry;
-
     public String mStringJson;
+    public int mIdDataBase;
 
-    public City(String mName, String mDescription, String mTemperature, int mWeatherIcon) {
-        this.mName = mName;
-        this.mDescription = mDescription;
-        this.mTemperature = mTemperature;
-        this.mWeatherIcon = mWeatherIcon;
-    }
 
     public City(String mStringJson) throws JSONException {
         this.mStringJson = mStringJson;

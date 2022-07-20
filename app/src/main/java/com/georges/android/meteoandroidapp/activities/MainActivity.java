@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText mTestMessage;
     private Context mContext;
     private OkHttpClient mOkHttpClient;
-    //private final String API_KEY = "01897e497239c8aff78d9b8538fb24ea";
     private Handler mHandler;
     private City mCurrentCity;
     private ActivityMainBinding binding;
@@ -64,17 +63,18 @@ public class MainActivity extends AppCompatActivity {
         mTextViewCityDescription = binding.textViewDescription;
         mTextViewCityTemp = binding.textViewTemp;
         mImageViewCityWeatherIcon = binding.imageViewPicto;
+        mButtonFavorite = binding.btnFavorite;
+
 
 
         //action btn favorite
-        mTestMessage = (EditText) findViewById(R.id.edit_text_test);
-        mButtonFavorite = (Button) findViewById(R.id.btn_favorite);
+        //mButtonFavorite = (Button) findViewById(R.id.btn_favorite);
         mButtonFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "clic btn favorite", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "clic btn favorite", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(mContext, FavoriteActivity.class);
-                intent.putExtra("monMessage", mTestMessage.getText().toString());
+                //intent.putExtra("monMessage", mTestMessage.getText().toString());
                 startActivity(intent);
             }
         });
