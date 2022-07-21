@@ -22,7 +22,7 @@ import java.util.List;
 
 public class DemoActivity extends AppCompatActivity {
     private Button demoBtnAddCity;
-    private Context context;
+    private Context demoContext;
     private RecyclerView demoRecyclerView;
     private DemoAdapter demoAdapter;
 
@@ -31,17 +31,19 @@ public class DemoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
 
-        context = this;
+        demoContext = this;
         demoBtnAddCity = (Button) findViewById(R.id.demo_btn_ajout_ville);
         demoBtnAddCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, MainActivity.class);
+                Intent intent = new Intent(demoContext, MainActivity.class);
                 startActivity(intent);
             }
         });
 
         initRecyclerView();
+
+        loadCityList();
 
 
     }
@@ -53,17 +55,14 @@ public class DemoActivity extends AppCompatActivity {
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
         demoRecyclerView.addItemDecoration(dividerItemDecoration);
-
-
+        demoAdapter = new DemoAdapter(this);
         demoRecyclerView.setAdapter(demoAdapter);
-        demoAdapter.notifyDataSetChanged();
-
-
     }
 
     private void loadCityList(){
         DemoCityDataBase demoCityDataBase = DemoCityDataBase.getDBInstance(this.getApplicationContext());
         List<DemoCity> cityList = demoCityDataBase.demoCityDao().getAllDemoCity();
+        demoAdapter.setDemoCityList(cityList);
     }
 
 
