@@ -18,4 +18,9 @@ public class DemoCity {
     @ColumnInfo(name = "city_temp")
     public String mTemp;
 
+    public DemoCity(String mNameCity, String mDescWeather, String mTemp) {
+        this.mNameCity = mNameCity;
+        this.mDescWeather = mDescWeather;
+        this.mTemp = mTemp;
+    }
 }

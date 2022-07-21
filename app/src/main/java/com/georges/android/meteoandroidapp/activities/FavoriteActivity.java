@@ -135,8 +135,7 @@ public class FavoriteActivity extends AppCompatActivity {
                             updateFavoriteCityList(stringJson);
                         }
                     });
-                }
-                else{
+                } else{
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {

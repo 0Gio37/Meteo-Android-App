@@ -18,12 +18,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.georges.android.meteoandroidapp.R;
+import com.georges.android.meteoandroidapp.database.DemoCityDataBase;
 import com.georges.android.meteoandroidapp.databinding.ActivityMainBinding;
 import com.georges.android.meteoandroidapp.models.City;
 
 import org.json.JSONException;
 import java.io.IOException;
 
+import com.georges.android.meteoandroidapp.models.DemoCity;
 import com.georges.android.meteoandroidapp.utils.UtilApi;
 
 import okhttp3.Call;
@@ -48,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
     private City mCurrentCity;
     private ActivityMainBinding binding;
 
+    //demo attribut
+    private EditText demoName;
+    private EditText demoDesc;
+    private EditText demoTemp;
+    private Button demoBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +72,20 @@ public class MainActivity extends AppCompatActivity {
         mTextViewCityTemp = binding.textViewTemp;
         mImageViewCityWeatherIcon = binding.imageViewPicto;
         mButtonFavorite = binding.btnFavorite;
+
+        //demo binding
+        demoName = binding.demoName;
+        demoDesc = binding.demoDesc;
+        demoTemp = binding.demoTemp;
+        demoBtn = binding.demoBtnValider;
+
+        //demo onclick btn listener
+        demoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                demoSaveNewCity(demoName.getText().toString(), demoDesc.getText().toString(),demoTemp.getText().toString());
+            }
+        });
 
 
 
@@ -140,8 +162,22 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    //demo save NewCity methode
+    private void demoSaveNewCity(String demoName, String demoDesc, String demoTemp){
+        DemoCityDataBase demoCityDataBase = DemoCityDataBase.getDBInstance(this.getApplicationContext());
+        DemoCity demoCity = new DemoCity(demoName,demoDesc,demoTemp);
+        demoCityDataBase.demoCityDao().insertDemoCity(demoCity);
+        finish();
 
     }
+
+
+
+
+
+
 
 
 }
