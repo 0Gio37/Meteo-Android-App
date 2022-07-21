@@ -84,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 demoSaveNewCity(demoName.getText().toString(), demoDesc.getText().toString(),demoTemp.getText().toString());
+                Intent intent = new Intent(mContext, DemoActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -156,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
             mCurrentCity = new City(strJson);
             mTextViewCityName.setText(mCurrentCity.mName);
             mTextViewCityDescription.setText(mCurrentCity.mDescription);
-            mTextViewCityTemp.setText(mCurrentCity.mTemperature);
+            mTextViewCityTemp.setText((mCurrentCity.mTemperature));
             mImageViewCityWeatherIcon.setImageResource(mCurrentCity.mWeatherResIconWhite);
 
         } catch (JSONException e) {

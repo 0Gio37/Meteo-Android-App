@@ -27,7 +27,9 @@ public class City {
 
         this.mName = json.getString("name");
         this.mDescription = json.getJSONArray("weather").getJSONObject(0).getString("description");
-        this.mTemperature = UtilTemp.setTempartureCelcius(json.getJSONObject("main").getInt("temp"));
+        //TODO request api avec units=metric to recup temp en celsius
+//        this.mTemperature = json.getJSONObject("main").getInt("temp");
+       this.mTemperature = UtilTemp.setTempartureCelcius(json.getJSONObject("main").getInt("temp"));
         this.mIdCity = json.getInt("id");
         this.mWeatherResIconWhite = UtilWeatherIcon.setWeatherIcon(json.getJSONArray("weather").getJSONObject(0).getInt("id"));
         this.mLatitude = json.getJSONObject("coord").getDouble("lat");
