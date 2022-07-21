@@ -57,7 +57,6 @@ public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.ViewHolder> {
             demoName = (TextView) view.findViewById(R.id.demo_single_item_name);
             demoDesc = (TextView) view.findViewById(R.id.demo_single_item_desc);
             demoTemp = (TextView) view.findViewById(R.id.demo_single_item_temp);
-
         }
 
     }

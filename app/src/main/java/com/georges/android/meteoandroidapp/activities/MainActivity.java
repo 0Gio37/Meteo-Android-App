@@ -54,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText demoName;
     private EditText demoDesc;
     private EditText demoTemp;
-    private Button demoBtn;
+    private Button demoBtnSave;
+    private Button demoBtnSeeListe;
 
 
     @Override
@@ -77,13 +78,23 @@ public class MainActivity extends AppCompatActivity {
         demoName = binding.demoName;
         demoDesc = binding.demoDesc;
         demoTemp = binding.demoTemp;
-        demoBtn = binding.demoBtnValider;
+        demoBtnSave = binding.demoBtnValider;
+        demoBtnSeeListe = binding.demoBtnVoirListe;
 
         //demo onclick btn listener
-        demoBtn.setOnClickListener(new View.OnClickListener() {
+        demoBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 demoSaveNewCity(demoName.getText().toString(), demoDesc.getText().toString(),demoTemp.getText().toString());
+                Intent intent = new Intent(mContext, DemoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //demo onclick voir la liste
+        demoBtnSeeListe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent intent = new Intent(mContext, DemoActivity.class);
                 startActivity(intent);
             }

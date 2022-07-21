@@ -15,12 +15,14 @@ public interface DemoCityDao {
     @Query("SELECT * FROM democity")
     List<DemoCity> getAllDemoCity();
 
+    @Query("DELETE FROM democity")
+    void delete();
+
     @Insert
     void insertDemoCity(DemoCity...cities);
 
     @Delete
     void delete(DemoCity demoCity);
-
 
 
 

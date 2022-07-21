@@ -1,16 +1,21 @@
 package com.georges.android.meteoandroidapp.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.georges.android.meteoandroidapp.R;
 import com.georges.android.meteoandroidapp.adapter.DemoAdapter;
@@ -22,6 +27,7 @@ import java.util.List;
 
 public class DemoActivity extends AppCompatActivity {
     private Button demoBtnAddCity;
+    private Button demoDeleteTable;
     private Context demoContext;
     private RecyclerView demoRecyclerView;
     private DemoAdapter demoAdapter;
@@ -41,6 +47,30 @@ public class DemoActivity extends AppCompatActivity {
             }
         });
 
+        demoDeleteTable = (Button) findViewById(R.id.demo_btn_supp_table);
+        demoDeleteTable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(demoContext);
+                builder.setTitle("Supprimer toute la liste ?");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        DemoCityDataBase demoCityDataBase = DemoCityDataBase.getDBInstance(demoContext.getApplicationContext());
+                        demoCityDataBase.demoCityDao().delete();
+                        Toast.makeText(demoContext, "Liste des favoris effacée", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(demoContext, MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                builder.setNegativeButton("Annuler", null);
+                builder.create().show();
+
+
+
+            }
+        });
+
         initRecyclerView();
 
         loadCityList();
@@ -52,11 +82,9 @@ public class DemoActivity extends AppCompatActivity {
         demoRecyclerView = (RecyclerView) findViewById(R.id.demo_recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         demoRecyclerView.setLayoutManager(layoutManager);
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
-        demoRecyclerView.addItemDecoration(dividerItemDecoration);
         demoAdapter = new DemoAdapter(this);
         demoRecyclerView.setAdapter(demoAdapter);
+        demoAdapter.notifyDataSetChanged();
     }
 
     private void loadCityList(){
