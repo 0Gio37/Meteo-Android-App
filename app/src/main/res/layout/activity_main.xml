@@ -57,6 +57,41 @@
         </LinearLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear_layout_main"
+        android:orientation="vertical"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp">
+        <EditText
+            android:id="@+id/demo_nom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Nom de la ville"/>
+        <EditText
+            android:id="@+id/demo_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Description"/>
+        <EditText
+            android:id="@+id/demo_temp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Temperature"/>
+        <Button
+            android:id="@+id/demo_btn_valider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="ajouter"
+            android:backgroundTint="@color/black"
+            />
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/btn_favorite"
