@@ -42,6 +42,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/king_blue"
+            android:text="23"
+            android:textSize="@dimen/h2" />
+        <TextView
+            android:id="@+id/demo_single_item_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/king_blue"
+            android:text="°C"
             android:textSize="@dimen/h2" />
     </LinearLayout>
 </LinearLayout>

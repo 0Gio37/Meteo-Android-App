@@ -16,7 +16,7 @@ public interface DemoCityDao {
     List<DemoCity> getAllDemoCity();
 
     @Query("DELETE FROM democity")
-    void delete();
+    void deleteAll();
 
     @Insert
     void insertDemoCity(DemoCity...cities);

@@ -57,7 +57,7 @@ public class DemoActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         DemoCityDataBase demoCityDataBase = DemoCityDataBase.getDBInstance(demoContext.getApplicationContext());
-                        demoCityDataBase.demoCityDao().delete();
+                        demoCityDataBase.demoCityDao().deleteAll();
                         Toast.makeText(demoContext, "Liste des favoris effacée", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(demoContext, MainActivity.class);
                         startActivity(intent);
