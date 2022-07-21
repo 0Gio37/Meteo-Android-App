@@ -46,7 +46,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         holder.mTexteViewSingleItemCityName.setText(city.mName);
         holder.mTexteViewSingleItemDescription.setText(city.mDescription);
         holder.mTexteViewSingleItemTemperature.setText(city.mTemperature);
-        holder.mTexteViewSingleItemWeatherIcon.setImageResource(city.mWeatherIcon);
+        holder.mTexteViewSingleItemWeatherIcon.setImageResource(city.mWeatherResIconWhite);
         holder.mCity = city;
     }
 
