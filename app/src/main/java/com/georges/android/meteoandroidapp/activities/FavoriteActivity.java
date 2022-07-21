@@ -70,12 +70,6 @@ public class FavoriteActivity extends AppCompatActivity {
         mOkHttpClient = new OkHttpClient();
         mHandler = new Handler();
 
-        //recup info main activity
-        //Bundle extras = getIntent().getExtras();
-        //String strMessage = extras.getString("monMessage");
-        //mGetMessage = (TextView) findViewById(R.id.text_view_message_activity);
-        //mGetMessage.setText("Message :" + strMessage);
-
        //crea list des cities
        mCities = new ArrayList<>();
 
@@ -106,10 +100,6 @@ public class FavoriteActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String newFavoriCity = editTextCity.getText().toString();
                         callAPI(newFavoriCity);
-                        //City city5 = new City(newFavoriCity, "Pluies modérées", "22°C", R.drawable.weather_rainy_white);
-                        //mCities.add(city5);
-                        //mAdapter.notifyDataSetChanged();
-                        //Toast.makeText(mContext, newFavoriCity + " ajouté aux favoris !", Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.setNegativeButton("Annuler", null);

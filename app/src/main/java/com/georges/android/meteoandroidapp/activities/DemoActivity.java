@@ -65,9 +65,6 @@ public class DemoActivity extends AppCompatActivity {
                 });
                 builder.setNegativeButton("Annuler", null);
                 builder.create().show();
-
-
-
             }
         });
 
