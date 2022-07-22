@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
             callAPI();
             Log.d("TAG", "connexion ok");
         } else{
+            //callAPI();
             displayNoConexionPage();
         }
     }
@@ -132,8 +133,7 @@ public class MainActivity extends AppCompatActivity {
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                displayNoConexionPage();
-                //TODO page when api failed request
+                //displayNoConexionPage();
             }
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
