@@ -4,50 +4,34 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
 import com.georges.android.meteoandroidapp.database.CityDataBase;
 import com.georges.android.meteoandroidapp.utils.UtilFavorite;
-
 import com.georges.android.meteoandroidapp.R;
 import com.georges.android.meteoandroidapp.adapter.FavoriteAdapter;
 import com.georges.android.meteoandroidapp.models.City;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.georges.android.meteoandroidapp.databinding.ActivityFavoriteBinding;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
 import com.georges.android.meteoandroidapp.utils.UtilApi;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
 
 public class FavoriteActivity extends AppCompatActivity {
 
@@ -88,8 +72,18 @@ public class FavoriteActivity extends AppCompatActivity {
         mRecylerViewListFavorite.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
 
+        //btn retour main layout
+        FloatingActionButton back = binding.back;
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
-        //supp de toute la liste de favoris
+
+        //btn supp de toute la liste de favoris
         FloatingActionButton del = binding.del;
         del.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +109,7 @@ public class FavoriteActivity extends AppCompatActivity {
             }
         });
 
-        //crea de la modale suite au click sur le btn search
+        //btn search -> open model
         FloatingActionButton fab = binding.fab;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

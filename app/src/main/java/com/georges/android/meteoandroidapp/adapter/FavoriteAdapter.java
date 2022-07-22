@@ -4,25 +4,18 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.georges.android.meteoandroidapp.R;
 import com.georges.android.meteoandroidapp.activities.FavoriteActivity;
 import com.georges.android.meteoandroidapp.database.CityDataBase;
 import com.georges.android.meteoandroidapp.models.City;
-import com.georges.android.meteoandroidapp.utils.UtilApi;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder>{

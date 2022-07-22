@@ -15,14 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.georges.android.meteoandroidapp.R;
 import com.georges.android.meteoandroidapp.databinding.ActivityMainBinding;
 import com.georges.android.meteoandroidapp.models.City;
-
 import java.io.IOException;
 import com.georges.android.meteoandroidapp.utils.UtilApi;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -43,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private Handler mHandler;
     private City mCurrentCity;
     private ActivityMainBinding binding;
-
-
 
 
     @Override
