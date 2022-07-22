@@ -46,21 +46,21 @@ public class DemoActivity extends AppCompatActivity {
         demoDeleteTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(demoContext);
+               /* final AlertDialog.Builder builder = new AlertDialog.Builder(demoContext);
                 builder.setTitle("Supprimer toute la liste ?");
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        /* DemoCityDataBase demoCityDataBase = DemoCityDataBase.getDBInstance(demoContext.getApplicationContext());
+                        DemoCityDataBase demoCityDataBase = DemoCityDataBase.getDBInstance(demoContext.getApplicationContext());
                         demoCityDataBase.demoCityDao().deleteAll();
                         Toast.makeText(demoContext, "Liste des favoris effacée", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(demoContext, MainActivity.class);
-                        startActivity(intent);*/
+                        startActivity(intent);
                     }
                 });
                 builder.setNegativeButton("Annuler", null);
-                builder.create().show();
+                builder.create().show();*/
             }
         });
 

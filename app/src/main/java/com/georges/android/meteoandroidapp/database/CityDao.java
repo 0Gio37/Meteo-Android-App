@@ -6,7 +6,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import com.georges.android.meteoandroidapp.models.City;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -22,8 +21,7 @@ public interface CityDao {
     @Insert
     void insertCity(City...cities);
 
-  /*  @Delete
+    @Delete
     void deleteOne(City City);
-*/
 
 }

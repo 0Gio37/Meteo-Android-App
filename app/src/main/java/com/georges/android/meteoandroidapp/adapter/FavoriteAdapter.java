@@ -18,7 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.georges.android.meteoandroidapp.R;
 import com.georges.android.meteoandroidapp.activities.FavoriteActivity;
+import com.georges.android.meteoandroidapp.database.CityDataBase;
 import com.georges.android.meteoandroidapp.models.City;
+import com.georges.android.meteoandroidapp.utils.UtilApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +28,8 @@ import java.util.List;
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder>{
 
     private Context mContext;
-//    private ArrayList<City> mCities;
     private List<City> mCities;
 
-    //public FavoriteAdapter(Context mContext, ArrayList<City> mCities){
     public FavoriteAdapter(Context mContext, List<City> mCities){
         this.mContext = mContext;
         this.mCities = mCities;
@@ -84,8 +84,11 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    mCities.remove(mCity);
-                    notifyDataSetChanged();
+                    CityDataBase cityDataBase = CityDataBase.getDBInstance(mContext.getApplicationContext());
+                    cityDataBase.cityDao().deleteOne(mCity);
+                    Intent intent = new Intent(mContext, FavoriteActivity.class);
+                    mContext.startActivity(intent);
+                    //notifyDataSetChanged();
                 }
             });
             builder.setNegativeButton("ANNULER", null);
