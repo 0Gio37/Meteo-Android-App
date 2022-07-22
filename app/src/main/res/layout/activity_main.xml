@@ -58,62 +58,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_layout_main"
-        android:orientation="vertical"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp">
-        <EditText
-            android:id="@+id/demo_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Nom de la ville"/>
-        <EditText
-            android:id="@+id/demo_desc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Description"/>
-        <EditText
-            android:id="@+id/demo_temp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Temperature"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            >
-            <Button
-                android:id="@+id/demo_btn_valider"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:text="save"
-                android:layout_gravity=""
-                android:backgroundTint="@color/black" />
-            <Button
-                android:id="@+id/demo_btn_voir_liste"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="5dp"
-                android:text="list"
-                android:backgroundTint="@color/teal_700" />
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
     <Button
         android:id="@+id/btn_favorite"
         android:layout_width="wrap_content"

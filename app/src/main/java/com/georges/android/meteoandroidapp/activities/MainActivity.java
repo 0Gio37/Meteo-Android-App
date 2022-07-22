@@ -20,10 +20,7 @@ import com.georges.android.meteoandroidapp.R;
 import com.georges.android.meteoandroidapp.databinding.ActivityMainBinding;
 import com.georges.android.meteoandroidapp.models.City;
 
-import org.json.JSONException;
 import java.io.IOException;
-
-import com.georges.android.meteoandroidapp.models.DemoCity;
 import com.georges.android.meteoandroidapp.utils.UtilApi;
 
 import okhttp3.Call;
@@ -33,12 +30,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
-
+    private TextView mTextViewNoConnexionMessage;
     private TextView mTextViewCityName;
     private TextView mTextViewCityDescription;
     private TextView mTextViewCityTemp;
     private ImageView mImageViewCityWeatherIcon;
-    private TextView mTextViewNoConnexionMessage;
     private Button mButtonFavorite;
     private Button mButtonAccesSetting;
     private EditText mTestMessage;
@@ -48,12 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private City mCurrentCity;
     private ActivityMainBinding binding;
 
-    //demo attribut
-    private EditText demoName;
-    private EditText demoDesc;
-    private EditText demoTemp;
-    private Button demoBtnSave;
-    private Button demoBtnSeeListe;
+
 
 
     @Override
@@ -72,40 +63,11 @@ public class MainActivity extends AppCompatActivity {
         mImageViewCityWeatherIcon = binding.imageViewPicto;
         mButtonFavorite = binding.btnFavorite;
 
-        //demo binding
-        demoName = binding.demoName;
-        demoDesc = binding.demoDesc;
-        demoTemp = binding.demoTemp;
-        demoBtnSave = binding.demoBtnValider;
-        demoBtnSeeListe = binding.demoBtnVoirListe;
-
-        //demo onclick btn listener
- /*       demoBtnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                demoSaveNewCity(demoName.getText().toString(), demoDesc.getText().toString(),demoTemp.getText().toString());
-                Intent intent = new Intent(mContext, DemoActivity.class);
-                startActivity(intent);
-            }
-        });*/
-
-        //demo onclick voir la liste
- /*       demoBtnSeeListe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, DemoActivity.class);
-                startActivity(intent);
-            }
-        });*/
-
-
-
         //action btn favorite
         mButtonFavorite = (Button) findViewById(R.id.btn_favorite);
         mButtonFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(MainActivity.this, "clic btn favorite", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(mContext, FavoriteActivity.class);
                 startActivity(intent);
             }
@@ -115,11 +77,9 @@ public class MainActivity extends AppCompatActivity {
         ConnectivityManager connMgr =(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if(networkInfo != null && networkInfo.isConnected()){
-           // Toast.makeText(this, mTextViewCityName.getText(), Toast.LENGTH_SHORT).show();
             callAPI();
             Log.d("TAG", "connexion ok");
         } else{
-            //callAPI();
             displayNoConexionPage();
         }
     }
@@ -162,32 +122,10 @@ public class MainActivity extends AppCompatActivity {
 
     //methode qui met à jour l'affichage de la vue
     public void renderCurrentWeather(String strJson){
-/*        try {
-            mCurrentCity = new City(strJson);
-            mTextViewCityName.setText(mCurrentCity.mName);
-            mTextViewCityDescription.setText(mCurrentCity.mDescription);
-            mTextViewCityTemp.setText((mCurrentCity.mTemperature));
-            mImageViewCityWeatherIcon.setImageResource(mCurrentCity.mWeatherResIconWhite);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
+        mCurrentCity = UtilApi.convertJsonToCityObjetc(strJson);
+        mTextViewCityName.setText(mCurrentCity.mName);
+        mTextViewCityDescription.setText(mCurrentCity.mDescription);
+        mTextViewCityTemp.setText((mCurrentCity.mTemperature));
+        mImageViewCityWeatherIcon.setImageResource(mCurrentCity.mWeatherResIconWhite);
     }
-
-    //demo room save NewCity methode
-/*    private void demoSaveNewCity(String demoName, String demoDesc, String demoTemp){
-        DemoCityDataBase demoCityDataBase = DemoCityDataBase.getDBInstance(this.getApplicationContext());
-        DemoCity demoCity = new DemoCity(demoName,demoDesc,demoTemp);
-        demoCityDataBase.demoCityDao().insertDemoCity(demoCity);
-        finish();
-
-    }*/
-
-
-
-
-
-
-
-
 }

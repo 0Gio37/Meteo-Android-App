@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.georges.android.meteoandroidapp.R;
-import com.georges.android.meteoandroidapp.activities.DemoActivity;
 import com.georges.android.meteoandroidapp.models.DemoCity;
 
 import java.util.List;
@@ -86,8 +85,8 @@ public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.ViewHolder> {
                     DemoAdapter demoAdapter;
                     //notifyItemRemoved(demoPosition);
                     //notifyDataSetChanged();
-                    Intent intent = new Intent(demoContext, DemoActivity.class);
-                    demoContext.startActivity(intent);
+                   // Intent intent = new Intent(demoContext, DemoActivity.class);
+                    //demoContext.startActivity(intent);
                 }
             });
             builder.setNegativeButton("ANNULER", null);

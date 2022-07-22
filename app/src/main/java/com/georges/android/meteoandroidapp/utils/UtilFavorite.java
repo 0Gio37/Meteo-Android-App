@@ -5,9 +5,6 @@ import java.util.List;
 
 public class UtilFavorite {
 
-    private static final String PREFS_NAME = null ;
-    private static final String PREFS_FAVORITE_CITIES = null;
-
     public static Boolean checkDoublon(List<City> list, City city){
         Boolean response = false;
         for (City item:list) {
