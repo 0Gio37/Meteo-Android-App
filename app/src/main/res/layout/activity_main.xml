@@ -58,6 +58,22 @@
         </LinearLayout>
     </LinearLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_add_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fab_margin"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:backgroundTint="@color/pink"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:visibility="visible"
+        android:src="@drawable/ic_favorite"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        />
+
+
     <Button
         android:id="@+id/btn_favorite"
         android:layout_width="wrap_content"

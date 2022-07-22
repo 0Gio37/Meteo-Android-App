@@ -16,10 +16,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.georges.android.meteoandroidapp.R;
+import com.georges.android.meteoandroidapp.database.CityDataBase;
 import com.georges.android.meteoandroidapp.databinding.ActivityMainBinding;
 import com.georges.android.meteoandroidapp.models.City;
 import java.io.IOException;
 import com.georges.android.meteoandroidapp.utils.UtilApi;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private Handler mHandler;
     private City mCurrentCity;
     private ActivityMainBinding binding;
+    private FloatingActionButton btnAddFavorites;
 
 
     @Override
@@ -57,9 +61,10 @@ public class MainActivity extends AppCompatActivity {
         mTextViewCityTemp = binding.textViewTemp;
         mImageViewCityWeatherIcon = binding.imageViewPicto;
         mButtonFavorite = binding.btnFavorite;
+        btnAddFavorites = binding.floatingAddFavorite;
 
-        //action btn favorite
-        mButtonFavorite = (Button) findViewById(R.id.btn_favorite);
+        //btn voir favoris
+        //mButtonFavorite = (Button) findViewById(R.id.btn_favorite);
         mButtonFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,6 +82,17 @@ public class MainActivity extends AppCompatActivity {
         } else{
             displayNoConexionPage();
         }
+
+        //btn ajout aux favoris
+        btnAddFavorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CityDataBase cityDataBase = CityDataBase.getDBInstance(mContext.getApplicationContext());
+                cityDataBase.cityDao().insertCity(mCurrentCity);
+                Intent intent = new Intent(mContext, FavoriteActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //appel de l API
@@ -111,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         mButtonAccesSetting.setVisibility(View.VISIBLE);
         mTextViewNoConnexionMessage = (TextView)findViewById(R.id.text_view_no_connexion_message);
         mTextViewNoConnexionMessage.setVisibility(View.VISIBLE);
-        Log.d("TAG", "erreur de connexion");
+        btnAddFavorites.setVisibility(View.INVISIBLE);
         //TODO affiche bouton dans le layout pour acces aux setting du tel
     }
 
