@@ -10,6 +10,9 @@ public class UtilWeatherIcon {
             case 800:
                 iconLocalPath = R.drawable.weather_sunny_white;
                 break;
+            case 801:
+                iconLocalPath = R.drawable.weather_cloudy_white;
+                break;
             case 802:
                 iconLocalPath = R.drawable.weather_thunder_white;
                 break;
