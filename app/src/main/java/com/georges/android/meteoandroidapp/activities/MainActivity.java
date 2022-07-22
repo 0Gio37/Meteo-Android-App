@@ -15,10 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.georges.android.meteoandroidapp.R;
-import com.georges.android.meteoandroidapp.database.DemoCityDataBase;
 import com.georges.android.meteoandroidapp.databinding.ActivityMainBinding;
 import com.georges.android.meteoandroidapp.models.City;
 
@@ -82,34 +80,33 @@ public class MainActivity extends AppCompatActivity {
         demoBtnSeeListe = binding.demoBtnVoirListe;
 
         //demo onclick btn listener
-        demoBtnSave.setOnClickListener(new View.OnClickListener() {
+ /*       demoBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 demoSaveNewCity(demoName.getText().toString(), demoDesc.getText().toString(),demoTemp.getText().toString());
                 Intent intent = new Intent(mContext, DemoActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         //demo onclick voir la liste
-        demoBtnSeeListe.setOnClickListener(new View.OnClickListener() {
+ /*       demoBtnSeeListe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, DemoActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
 
 
         //action btn favorite
-        //mButtonFavorite = (Button) findViewById(R.id.btn_favorite);
+        mButtonFavorite = (Button) findViewById(R.id.btn_favorite);
         mButtonFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Toast.makeText(MainActivity.this, "clic btn favorite", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(mContext, FavoriteActivity.class);
-                //intent.putExtra("monMessage", mTestMessage.getText().toString());
                 startActivity(intent);
             }
         });
@@ -165,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
     //methode qui met à jour l'affichage de la vue
     public void renderCurrentWeather(String strJson){
-        try {
+/*        try {
             mCurrentCity = new City(strJson);
             mTextViewCityName.setText(mCurrentCity.mName);
             mTextViewCityDescription.setText(mCurrentCity.mDescription);
@@ -174,17 +171,17 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
-    //demo save NewCity methode
-    private void demoSaveNewCity(String demoName, String demoDesc, String demoTemp){
+    //demo room save NewCity methode
+/*    private void demoSaveNewCity(String demoName, String demoDesc, String demoTemp){
         DemoCityDataBase demoCityDataBase = DemoCityDataBase.getDBInstance(this.getApplicationContext());
         DemoCity demoCity = new DemoCity(demoName,demoDesc,demoTemp);
         demoCityDataBase.demoCityDao().insertDemoCity(demoCity);
         finish();
 
-    }
+    }*/
 
 
 

@@ -21,13 +21,16 @@ import com.georges.android.meteoandroidapp.activities.FavoriteActivity;
 import com.georges.android.meteoandroidapp.models.City;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder>{
 
     private Context mContext;
-    private ArrayList<City> mCities;
+//    private ArrayList<City> mCities;
+    private List<City> mCities;
 
-    public FavoriteAdapter(Context mContext, ArrayList<City> mCities){
+    //public FavoriteAdapter(Context mContext, ArrayList<City> mCities){
+    public FavoriteAdapter(Context mContext, List<City> mCities){
         this.mContext = mContext;
         this.mCities = mCities;
     }

@@ -2,7 +2,6 @@ package com.georges.android.meteoandroidapp.activities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,17 +9,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.georges.android.meteoandroidapp.R;
 import com.georges.android.meteoandroidapp.adapter.DemoAdapter;
-import com.georges.android.meteoandroidapp.database.DemoCityDataBase;
-import com.georges.android.meteoandroidapp.models.City;
 import com.georges.android.meteoandroidapp.models.DemoCity;
 
 import java.util.List;
@@ -47,6 +41,7 @@ public class DemoActivity extends AppCompatActivity {
             }
         });
 
+        //btn supp all liste
         demoDeleteTable = (Button) findViewById(R.id.demo_btn_supp_table);
         demoDeleteTable.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,11 +51,12 @@ public class DemoActivity extends AppCompatActivity {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        DemoCityDataBase demoCityDataBase = DemoCityDataBase.getDBInstance(demoContext.getApplicationContext());
+
+                        /* DemoCityDataBase demoCityDataBase = DemoCityDataBase.getDBInstance(demoContext.getApplicationContext());
                         demoCityDataBase.demoCityDao().deleteAll();
                         Toast.makeText(demoContext, "Liste des favoris effacée", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(demoContext, MainActivity.class);
-                        startActivity(intent);
+                        startActivity(intent);*/
                     }
                 });
                 builder.setNegativeButton("Annuler", null);
@@ -70,7 +66,7 @@ public class DemoActivity extends AppCompatActivity {
 
         initRecyclerView();
 
-        loadCityList();
+    /*    loadCityList();*/
 
 
     }
@@ -83,12 +79,12 @@ public class DemoActivity extends AppCompatActivity {
         demoRecyclerView.setAdapter(demoAdapter);
         demoAdapter.notifyDataSetChanged();
     }
-
+/*
     private void loadCityList(){
         DemoCityDataBase demoCityDataBase = DemoCityDataBase.getDBInstance(this.getApplicationContext());
         List<DemoCity> cityList = demoCityDataBase.demoCityDao().getAllDemoCity();
         demoAdapter.setDemoCityList(cityList);
-    }
+    }*/
 
 
 }

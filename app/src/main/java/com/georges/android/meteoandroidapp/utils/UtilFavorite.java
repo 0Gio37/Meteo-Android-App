@@ -26,7 +26,7 @@ public class UtilFavorite {
     return response;
     }
 
-    public static void saveFavouriteCities(Context context, ArrayList<City> cities){
+   /* public static void saveFavouriteCities(Context context, ArrayList<City> cities){
         JSONArray jsonArrayCities = new JSONArray();
         for (int i =0; i < cities.size(); i++){
             jsonArrayCities.put(cities.get(i).mStringJson);
@@ -53,7 +53,7 @@ public class UtilFavorite {
         }
         return cities;
     }
-
+*/
 
 
 

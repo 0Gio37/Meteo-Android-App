@@ -3,6 +3,8 @@ package com.georges.android.meteoandroidapp.activities;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
+import com.georges.android.meteoandroidapp.database.CityDataBase;
 import com.georges.android.meteoandroidapp.utils.UtilFavorite;
 
 import com.georges.android.meteoandroidapp.R;
@@ -36,6 +38,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.georges.android.meteoandroidapp.utils.UtilApi;
 
@@ -54,6 +57,7 @@ public class FavoriteActivity extends AppCompatActivity {
     private Context mContext;
     private OkHttpClient mOkHttpClient;
     private Handler mHandler;
+    private List<City> listCitiesFromDB;
 
 
     @Override
@@ -73,13 +77,27 @@ public class FavoriteActivity extends AppCompatActivity {
        //crea list des cities
        mCities = new ArrayList<>();
 
+       //list des cities en room
+        CityDataBase cityDataBase = CityDataBase.getDBInstance(this.getApplicationContext());
+        listCitiesFromDB = cityDataBase.cityDao().getAllCities();
+
+
+
+
+
 
         //binding de la recylcler view
         mRecylerViewListFavorite = (RecyclerView) findViewById(R.id.recycler_view_list_favorite);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mRecylerViewListFavorite.setLayoutManager(layoutManager);
-        //creation de l'instance adapter / set recycler
-        mAdapter = new FavoriteAdapter(this, mCities);
+
+        //creation de l'instance adapter / set recycler -> list fav temp
+   /*     mAdapter = new FavoriteAdapter(this, mCities);
+        mRecylerViewListFavorite.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();*/
+
+        //creation de l'instance adapter / set recycler -> room
+        mAdapter = new FavoriteAdapter(this, listCitiesFromDB);
         mRecylerViewListFavorite.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
 
@@ -138,9 +156,10 @@ public class FavoriteActivity extends AppCompatActivity {
     }
 
     public void updateFavoriteCityList(String stringJson){
-        try {
+        //version avec la liste cities en dur
+ /*       try {
             City newFavoriteCity = new City(stringJson);
-            JSONObject json = new JSONObject(stringJson);
+            //JSONObject json = new JSONObject(stringJson);
             if(UtilFavorite.checkDoublon(mCities,newFavoriteCity)){
                 Toast.makeText(mContext, "Ville déjà en favori ", Toast.LENGTH_LONG).show();
             }else{
@@ -150,6 +169,24 @@ public class FavoriteActivity extends AppCompatActivity {
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }*/
+
+
+        //version avec room
+        CityDataBase cityDataBase = CityDataBase.getDBInstance(this.getApplicationContext());
+        City newFavoriteCity = UtilApi.convertJsonToCityObjetc(stringJson);
+        cityDataBase.cityDao().insertCity(newFavoriteCity);
+        finish();
+
+
     }
+
+
+
+
+
+
+
+
+
 }

@@ -15,8 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.georges.android.meteoandroidapp.R;
 import com.georges.android.meteoandroidapp.activities.DemoActivity;
-import com.georges.android.meteoandroidapp.activities.MainActivity;
-import com.georges.android.meteoandroidapp.database.DemoCityDataBase;
 import com.georges.android.meteoandroidapp.models.DemoCity;
 
 import java.util.List;
@@ -83,8 +81,8 @@ public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.ViewHolder> {
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    DemoCityDataBase demoCityDataBase = DemoCityDataBase.getDBInstance(demoContext.getApplicationContext());
-                    demoCityDataBase.demoCityDao().delete(demoCity);
+                    //DemoCityDataBase demoCityDataBase = DemoCityDataBase.getDBInstance(demoContext.getApplicationContext());
+                    //demoCityDataBase.demoCityDao().delete(demoCity);
                     DemoAdapter demoAdapter;
                     //notifyItemRemoved(demoPosition);
                     //notifyDataSetChanged();
