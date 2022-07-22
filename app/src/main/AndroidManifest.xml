@@ -20,6 +20,7 @@
             android:name=".activities.FavoriteActivity"
             android:exported="false"
             android:label="@string/title_activity_favorite"
+            android:parentActivityName=".activities.MainActivity"
             android:theme="@style/Theme.MeteoAndroidApp.NoActionBar" />
         <activity
             android:name=".activities.MainActivity"

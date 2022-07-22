@@ -3,9 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_favorite.xml" value="0.3708882649739583" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.16616516113281254" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1325" />
+        <entry key="app/src/main/res/layout-w1240dp/content_scrolling.xml" value="0.2510204081632653" />
+        <entry key="app/src/main/res/layout-w936dp/content_scrolling.xml" value="0.144140625" />
+        <entry key="app/src/main/res/layout/activity_demo.xml" value="0.20070800781250003" />
+        <entry key="app/src/main/res/layout/activity_demo_city.xml" value="0.1921875" />
+        <entry key="app/src/main/res/layout/activity_favorite.xml" value="0.1790395100911458" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.10147705078125002" />
         <entry key="app/src/main/res/layout/content_scrolling.xml" value="0.19270833333333334" />
+        <entry key="app/src/main/res/layout/demo_city.xml" value="0.2296875" />
+        <entry key="app/src/main/res/layout/demo_content_scrolling.xml" value="0.1921875" />
+        <entry key="app/src/main/res/layout/demo_display_all.xml" value="0.2296875" />
+        <entry key="app/src/main/res/layout/demo_single_item.xml" value="0.23072916666666668" />
         <entry key="app/src/main/res/layout/dialog_add_favorite.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/layout/item_favorite_city.xml" value="0.18802083333333333" />
       </map>

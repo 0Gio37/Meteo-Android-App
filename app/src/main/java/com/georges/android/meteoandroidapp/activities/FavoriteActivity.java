@@ -2,58 +2,46 @@ package com.georges.android.meteoandroidapp.activities;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import com.georges.android.meteoandroidapp.database.CityDataBase;
 import com.georges.android.meteoandroidapp.utils.UtilFavorite;
-
 import com.georges.android.meteoandroidapp.R;
 import com.georges.android.meteoandroidapp.adapter.FavoriteAdapter;
 import com.georges.android.meteoandroidapp.models.City;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.georges.android.meteoandroidapp.databinding.ActivityFavoriteBinding;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.ArrayList;
-
+import java.util.List;
 import com.georges.android.meteoandroidapp.utils.UtilApi;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+
 public class FavoriteActivity extends AppCompatActivity {
 
     private ActivityFavoriteBinding binding;
-    private ArrayList<City> mCities;
     private RecyclerView mRecylerViewListFavorite;
     private FavoriteAdapter mAdapter;
     private Context mContext;
     private OkHttpClient mOkHttpClient;
     private Handler mHandler;
+    private List<City> listCitiesFromDB;
 
 
     @Override
@@ -70,26 +58,58 @@ public class FavoriteActivity extends AppCompatActivity {
         mOkHttpClient = new OkHttpClient();
         mHandler = new Handler();
 
-        //recup info main activity
-        //Bundle extras = getIntent().getExtras();
-        //String strMessage = extras.getString("monMessage");
-        //mGetMessage = (TextView) findViewById(R.id.text_view_message_activity);
-        //mGetMessage.setText("Message :" + strMessage);
-
-       //crea list des cities
-       mCities = new ArrayList<>();
-
+       //list des cities en room
+        CityDataBase cityDataBase = CityDataBase.getDBInstance(this.getApplicationContext());
+        listCitiesFromDB = cityDataBase.cityDao().getAllCities();
 
         //binding de la recylcler view
         mRecylerViewListFavorite = (RecyclerView) findViewById(R.id.recycler_view_list_favorite);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mRecylerViewListFavorite.setLayoutManager(layoutManager);
-        //creation de l'instance adapter / set recycler
-        mAdapter = new FavoriteAdapter(this, mCities);
+
+        //creation de l'instance adapter / set recycler -> room
+        mAdapter = new FavoriteAdapter(this, listCitiesFromDB);
         mRecylerViewListFavorite.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
 
-        //crea de la modale suite au click sur le btn search
+        //btn retour main layout
+        FloatingActionButton back = binding.back;
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        //btn supp de toute la liste de favoris
+        FloatingActionButton del = binding.del;
+        del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle("Supprimer toute la liste ?");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        CityDataBase cityDataBase = CityDataBase.getDBInstance(mContext.getApplicationContext());
+                        if(cityDataBase.cityDao().getAllCities().size() >0){
+                            cityDataBase.cityDao().deleteAll();
+                            Toast.makeText(mContext, "Liste des favoris effacée", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(mContext, MainActivity.class);
+                            startActivity(intent);
+                        }else {
+                            Toast.makeText(mContext, "Liste déjà vide", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.setNegativeButton("Annuler", null);
+                builder.create().show();
+            }
+        });
+
+        //btn search -> open model
         FloatingActionButton fab = binding.fab;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,10 +126,6 @@ public class FavoriteActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String newFavoriCity = editTextCity.getText().toString();
                         callAPI(newFavoriCity);
-                        //City city5 = new City(newFavoriCity, "Pluies modérées", "22°C", R.drawable.weather_rainy_white);
-                        //mCities.add(city5);
-                        //mAdapter.notifyDataSetChanged();
-                        //Toast.makeText(mContext, newFavoriCity + " ajouté aux favoris !", Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.setNegativeButton("Annuler", null);
@@ -119,7 +135,6 @@ public class FavoriteActivity extends AppCompatActivity {
     }
 
     public void callAPI(String newFavoriCity){
-        //Request request = new Request.Builder().url("https://api.openweathermap.org/data/2.5/weather?q="+newFavoriCity+"&appid="+API_KEY).build();
         Request request = new Request.Builder().url(UtilApi.urlByCityName+newFavoriCity+"&appid="+UtilApi.API_KEY).build();
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
@@ -135,8 +150,7 @@ public class FavoriteActivity extends AppCompatActivity {
                             updateFavoriteCityList(stringJson);
                         }
                     });
-                }
-                else{
+                } else{
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -149,18 +163,16 @@ public class FavoriteActivity extends AppCompatActivity {
     }
 
     public void updateFavoriteCityList(String stringJson){
-        try {
-            City newFavoriteCity = new City(stringJson);
-            JSONObject json = new JSONObject(stringJson);
-            if(UtilFavorite.checkDoublon(mCities,newFavoriteCity)){
+        CityDataBase cityDataBase = CityDataBase.getDBInstance(this.getApplicationContext());
+        City newFavoriteCity = UtilApi.convertJsonToCityObjetc(stringJson);
+            if(UtilFavorite.checkDoublon(listCitiesFromDB,newFavoriteCity)){
                 Toast.makeText(mContext, "Ville déjà en favori ", Toast.LENGTH_LONG).show();
             }else{
-                mCities.add(newFavoriteCity);
-                mAdapter.notifyDataSetChanged();
+                cityDataBase.cityDao().insertCity(newFavoriteCity);
+                //mAdapter.notifyDataSetChanged();
+                Intent intent = new Intent(mContext, FavoriteActivity.class);
+                startActivity(intent);
                 Toast.makeText(mContext, newFavoriteCity.mName + " ajouté aux favoris !", Toast.LENGTH_SHORT).show();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 }

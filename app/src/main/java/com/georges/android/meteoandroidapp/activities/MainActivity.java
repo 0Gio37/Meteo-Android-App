@@ -15,17 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.georges.android.meteoandroidapp.R;
 import com.georges.android.meteoandroidapp.databinding.ActivityMainBinding;
 import com.georges.android.meteoandroidapp.models.City;
-
-import org.json.JSONException;
 import java.io.IOException;
-
 import com.georges.android.meteoandroidapp.utils.UtilApi;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -33,12 +27,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
-
+    private TextView mTextViewNoConnexionMessage;
     private TextView mTextViewCityName;
     private TextView mTextViewCityDescription;
     private TextView mTextViewCityTemp;
     private ImageView mImageViewCityWeatherIcon;
-    private TextView mTextViewNoConnexionMessage;
     private Button mButtonFavorite;
     private Button mButtonAccesSetting;
     private EditText mTestMessage;
@@ -65,16 +58,12 @@ public class MainActivity extends AppCompatActivity {
         mImageViewCityWeatherIcon = binding.imageViewPicto;
         mButtonFavorite = binding.btnFavorite;
 
-
-
         //action btn favorite
-        //mButtonFavorite = (Button) findViewById(R.id.btn_favorite);
+        mButtonFavorite = (Button) findViewById(R.id.btn_favorite);
         mButtonFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(MainActivity.this, "clic btn favorite", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(mContext, FavoriteActivity.class);
-                //intent.putExtra("monMessage", mTestMessage.getText().toString());
                 startActivity(intent);
             }
         });
@@ -83,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
         ConnectivityManager connMgr =(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if(networkInfo != null && networkInfo.isConnected()){
-           // Toast.makeText(this, mTextViewCityName.getText(), Toast.LENGTH_SHORT).show();
             callAPI();
             Log.d("TAG", "connexion ok");
         } else{
@@ -97,8 +85,7 @@ public class MainActivity extends AppCompatActivity {
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                displayNoConexionPage();
-                //TODO page when api failed request
+                //displayNoConexionPage();
             }
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
@@ -130,18 +117,10 @@ public class MainActivity extends AppCompatActivity {
 
     //methode qui met à jour l'affichage de la vue
     public void renderCurrentWeather(String strJson){
-        try {
-            mCurrentCity = new City(strJson);
-            mTextViewCityName.setText(mCurrentCity.mName);
-            mTextViewCityDescription.setText(mCurrentCity.mDescription);
-            mTextViewCityTemp.setText(mCurrentCity.mTemperature);
-            mImageViewCityWeatherIcon.setImageResource(mCurrentCity.mWeatherResIconWhite);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        mCurrentCity = UtilApi.convertJsonToCityObjetc(strJson);
+        mTextViewCityName.setText(mCurrentCity.mName);
+        mTextViewCityDescription.setText(mCurrentCity.mDescription);
+        mTextViewCityTemp.setText((mCurrentCity.mTemperature));
+        mImageViewCityWeatherIcon.setImageResource(mCurrentCity.mWeatherResIconWhite);
     }
-
-
 }
