@@ -2,9 +2,15 @@ package com.georges.android.meteoandroidapp.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -15,6 +21,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.georges.android.meteoandroidapp.R;
 import com.georges.android.meteoandroidapp.database.CityDataBase;
 import com.georges.android.meteoandroidapp.databinding.ActivityMainBinding;
@@ -44,6 +52,11 @@ public class MainActivity extends AppCompatActivity {
     private City mCurrentCity;
     private ActivityMainBinding binding;
     private FloatingActionButton btnAddFavorites;
+    private LocationManager mLocationManager;
+    private LocationListener mLocationListener;
+    private Location mCurrentLocation;
+    final private int REQUEST_CODE = 123;
+
 
 
     @Override
@@ -64,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         btnAddFavorites = binding.floatingAddFavorite;
 
         //btn voir favoris
-        //mButtonFavorite = (Button) findViewById(R.id.btn_favorite);
         mButtonFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,12 +85,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        initLocationListener();
+
         //test de connexion
         ConnectivityManager connMgr =(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if(networkInfo != null && networkInfo.isConnected()){
-            callAPI();
-            Log.d("TAG", "connexion ok");
+            //callAPI();
+            updateWeatherDataCoordinatesFromMyLocation();
         } else{
             displayNoConexionPage();
         }
@@ -93,10 +107,71 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
-    //appel de l API
-    public void callAPI(){
+    public void initLocationListener(){
+        Log.d("TAG", "dans la fonction initlocation");
+        mLocationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
+                mCurrentLocation = location;
+                Log.d("LOL", "onLocationChanged: " + location);
+                updateWeatherDataCoordinates();
+                mLocationManager.removeUpdates(mLocationListener);
+            }
+        };
+    }
+
+    public void updateWeatherDataCoordinatesFromMyLocation(){
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE);
+            Log.d("TAG", "updateWeatherDataCoordinatesFromMyLocation -> if");
+        } else {
+            Log.d("TAG", "updateWeatherDataCoordinatesFromMyLocation -> else");
+            Log.d("TAG", "location listener : "+mLocationListener);
+            mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, mLocationListener);
+        }
+    }
+
+
+    public void updateWeatherDataCoordinates(){
+        String newLat = String.valueOf(mCurrentLocation.getLatitude());
+        String newLong = String.valueOf(mCurrentLocation.getLongitude());
+        String newUrl = "http://api.openweathermap.org/data/2.5/weather?lat="+newLat+"&lon="+newLong+"&appid="+UtilApi.API_KEY;
+        Log.d("TAG", "updateWeatherDataCoordinates -> "+newUrl);
+        Request request = new Request.Builder().url(newUrl).build();
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
+
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                final String stringJson = response.body().string();
+                if (response.isSuccessful()) {
+                    mHandler.post(new Runnable() {
+                        public void run() {
+                            renderCurrentWeather(stringJson);
+                        }
+                    });
+                } else {
+                    mHandler.post(new Runnable() {
+                        public void run() {
+                            Toast.makeText(mContext, "Lieu non trouvé !!", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+
+    //appel de l API avec ancienne methode lat et long fix
+/*    public void callAPI(){
         Request request = new Request.Builder().url(UtilApi.urlByLatAndLong+UtilApi.API_KEY).build();
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
@@ -107,7 +182,6 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.isSuccessful()) {
                     final String stringJson = response.body().string();
-                    Log.d("TAG", stringJson);
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -117,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+    }*/
 
     //affichage d'une page d'erreur de connexion
     public void displayNoConexionPage(){
@@ -138,5 +212,26 @@ public class MainActivity extends AppCompatActivity {
         mTextViewCityDescription.setText(mCurrentCity.mDescription);
         mTextViewCityTemp.setText((mCurrentCity.mTemperature));
         mImageViewCityWeatherIcon.setImageResource(mCurrentCity.mWeatherResIconWhite);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("TAG", "onRequestPermissionsResult -> if");
+                    // Permission Granted
+                    updateWeatherDataCoordinatesFromMyLocation();
+
+                } else {
+                    Log.d("TAG", "onRequestPermissionsResult -> else");
+                    // Permission Denied
+                    Toast.makeText(MainActivity.this, "Location Permission Denied", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }
