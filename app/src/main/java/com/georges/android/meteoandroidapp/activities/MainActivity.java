@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("TAG", "updateWeatherDataCoordinatesFromMyLocation -> if");
         } else {
             Log.d("TAG", "updateWeatherDataCoordinatesFromMyLocation -> else");
+            Log.d("TAG", "location listener : "+mLocationListener);
             mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, mLocationListener);
         }
@@ -168,8 +169,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //appel de l API avec methode lat et long fix
-    public void callAPI(){
+    //appel de l API avec ancienne methode lat et long fix
+/*    public void callAPI(){
         Request request = new Request.Builder().url(UtilApi.urlByLatAndLong+UtilApi.API_KEY).build();
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
@@ -189,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+    }*/
 
     //affichage d'une page d'erreur de connexion
     public void displayNoConexionPage(){
