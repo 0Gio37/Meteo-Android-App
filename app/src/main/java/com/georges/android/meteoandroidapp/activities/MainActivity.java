@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        initLocationListener();
+
         //test de connexion
         ConnectivityManager connMgr =(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        initLocationListener();
+
     }
 
     public void initLocationListener(){
@@ -139,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         String newLat = String.valueOf(mCurrentLocation.getLatitude());
         String newLong = String.valueOf(mCurrentLocation.getLongitude());
         String newUrl = "http://api.openweathermap.org/data/2.5/weather?lat="+newLat+"&lon="+newLong+"&appid="+UtilApi.API_KEY;
-        Log.d("TAG", "updateWeatherDataCoordinates -> url");
+        Log.d("TAG", "updateWeatherDataCoordinates -> "+newUrl);
         Request request = new Request.Builder().url(newUrl).build();
         mOkHttpClient.newCall(request).enqueue(new Callback() {
 
@@ -160,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
                     mHandler.post(new Runnable() {
                         public void run() {
                             Toast.makeText(mContext, "Lieu non trouvé !!", Toast.LENGTH_LONG).show();
-                            //updateViewError(R.string.place_not_found);
                         }
                     });
                 }
