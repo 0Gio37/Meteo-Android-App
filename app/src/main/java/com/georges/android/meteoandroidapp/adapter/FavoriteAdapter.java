@@ -14,8 +14,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.georges.android.meteoandroidapp.MapActivity;
 import com.georges.android.meteoandroidapp.R;
 import com.georges.android.meteoandroidapp.activities.FavoriteActivity;
+import com.georges.android.meteoandroidapp.activities.MainActivity;
 import com.georges.android.meteoandroidapp.database.CityDataBase;
 import com.georges.android.meteoandroidapp.models.City;
 import java.util.List;
@@ -24,7 +27,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
     private Context mContext;
     private List<City> mCities;
-    private LinearLayout mLinearLayoutMain;
 
     public FavoriteAdapter(Context mContext, List<City> mCities){
         this.mContext = mContext;
@@ -37,7 +39,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         View v = LayoutInflater.from(mContext).inflate(R.layout.item_favorite_city, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
-    };
+    }
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -54,7 +57,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         return mCities.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         public TextView mTexteViewSingleItemCityName;
         public TextView mTexteViewSingleItemDescription;
         public TextView mTexteViewSingleItemTemperature;
@@ -64,24 +67,23 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
         public ViewHolder(View view){
             super(view);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, MapActivity.class);
+                    intent.putExtra("latitude",mCity.mLatitude);
+                    intent.putExtra("longitude",mCity.mLongitude);
+                    intent.putExtra("nameCity",mCity.mName);
+                    mContext.startActivity(intent);
+                }
+            });
             view.setOnLongClickListener(this);
             mTexteViewSingleItemCityName = (TextView) view.findViewById(R.id.text_view_single_item_name);
             mTexteViewSingleItemDescription = (TextView) view.findViewById(R.id.text_view_single_item_description);
             mTexteViewSingleItemTemperature = (TextView) view.findViewById(R.id.text_view_single_item_temp);
             mTexteViewSingleItemWeatherIcon = (ImageView) view.findViewById(R.id.image_view_single_item_picto);
-            mLinearLayoutMain = (LinearLayout) view.findViewById(R.id.linear_layout_single_item_city);
         }
 
-        //onClick Listener linear layout main
-        public void onClickLinear(){
-            mLinearLayoutMain.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.d("TAG", "click");
-                }
-            });
-
-        }
 
 
         @Override

@@ -36,7 +36,7 @@
         <activity
             android:name=".MapActivity"
             android:exported="false"
-            android:label="@string/title_activity_map" />
+            android:label="Favori sur la carte" />
         <activity
             android:name=".activities.FavoriteActivity"
             android:exported="false"

@@ -1,5 +1,6 @@
 package com.georges.android.meteoandroidapp;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
@@ -12,10 +13,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.georges.android.meteoandroidapp.databinding.ActivityMapBinding;
 
-public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ActivityMapBinding binding;
+    private double mCurrentLatitude;
+    private double mCurrentLongitude;
+    private String mCurrentNameCity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +48,20 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        Bundle bundle =  getIntent().getExtras();
+        mCurrentLatitude = bundle.getDouble("latitude");
+        mCurrentLongitude = bundle.getDouble("longitude");
+        mCurrentNameCity = bundle.getString("nameCity");
+
+
+        // Add a marker in my favorite city and move the camera
+        LatLng currentCity = new LatLng(mCurrentLatitude, mCurrentLongitude);
+        mMap.addMarker(new MarkerOptions().position(currentCity).title(mCurrentNameCity));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentCity));
+
+        LatLng currentCity2 = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(currentCity2).title("test"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentCity2));
+
     }
 }
