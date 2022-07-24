@@ -4,10 +4,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +24,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
     private Context mContext;
     private List<City> mCities;
+    private LinearLayout mLinearLayoutMain;
 
     public FavoriteAdapter(Context mContext, List<City> mCities){
         this.mContext = mContext;
@@ -66,7 +69,20 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             mTexteViewSingleItemDescription = (TextView) view.findViewById(R.id.text_view_single_item_description);
             mTexteViewSingleItemTemperature = (TextView) view.findViewById(R.id.text_view_single_item_temp);
             mTexteViewSingleItemWeatherIcon = (ImageView) view.findViewById(R.id.image_view_single_item_picto);
+            mLinearLayoutMain = (LinearLayout) view.findViewById(R.id.linear_layout_single_item_city);
         }
+
+        //onClick Listener linear layout main
+        public void onClickLinear(){
+            mLinearLayoutMain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("TAG", "click");
+                }
+            });
+
+        }
+
 
         @Override
         public boolean onLongClick(View v) {

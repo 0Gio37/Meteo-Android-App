@@ -21,6 +21,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.georges.android.meteoandroidapp.databinding.ActivityFavoriteBinding;
 import java.io.IOException;
@@ -81,7 +82,6 @@ public class FavoriteActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
         //btn supp de toute la liste de favoris
         FloatingActionButton del = binding.del;
@@ -175,4 +175,5 @@ public class FavoriteActivity extends AppCompatActivity {
                 Toast.makeText(mContext, newFavoriteCity.mName + " ajouté aux favoris !", Toast.LENGTH_SHORT).show();
             }
     }
+
 }

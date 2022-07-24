@@ -10,13 +10,14 @@
         <entry key="app/src/main/res/layout/activity_demo_city.xml" value="0.1921875" />
         <entry key="app/src/main/res/layout/activity_favorite.xml" value="0.1790395100911458" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2570694087403599" />
+        <entry key="app/src/main/res/layout/activity_map.xml" value="0.23854166666666668" />
         <entry key="app/src/main/res/layout/content_scrolling.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/demo_city.xml" value="0.2296875" />
         <entry key="app/src/main/res/layout/demo_content_scrolling.xml" value="0.1921875" />
         <entry key="app/src/main/res/layout/demo_display_all.xml" value="0.2296875" />
         <entry key="app/src/main/res/layout/demo_single_item.xml" value="0.23072916666666668" />
         <entry key="app/src/main/res/layout/dialog_add_favorite.xml" value="0.24895833333333334" />
-        <entry key="app/src/main/res/layout/item_favorite_city.xml" value="0.18802083333333333" />
+        <entry key="app/src/main/res/layout/item_favorite_city.xml" value="0.1" />
       </map>
     </option>
   </component>
