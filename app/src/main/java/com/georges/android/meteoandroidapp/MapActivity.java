@@ -58,7 +58,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         LatLng currentCity = new LatLng(mCurrentLatitude, mCurrentLongitude);
         mMap.addMarker(new MarkerOptions().position(currentCity).title(mCurrentNameCity));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentCity));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(20));
 
 
     }
